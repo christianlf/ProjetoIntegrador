@@ -21,22 +21,22 @@ try:
         print("\t   Programa Controle de Estoque")
         print("-"*55)
         print ("\033[32m[1] Visualizar Produto \033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto\033[0m \n\033[31m[4] Apagar Produto\033[0m\n")
-        num_tela = get_input("\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
+        num_tela = Verificação("\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
         while num_tela not in [1, 2,3,4]:
                 print("\n\t\033[41mERRO\033[0m\n")
                 print ("\033[32m[1] Visualizar Produto \033[0m   \n[2] Cadastrar Produto \n\033[33m[3] Editar Produto\033[0m \n\033[31m[4] Apagar Produto\033[0m\n")
-                num_tela = get_input("\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
+                num_tela = Verificação("\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
         return num_tela
     #Def para tratar os erros sobre as entradas
 
-    # chat gpt seu sem vergonha 
-    def get_input(message, data_type):
+
+    def Verificação(message, data_type):
         while True:
-            try:
-                user_input = data_type(input(message))
-                return user_input
-            except ValueError:    
-                print("Entrada inválida. Por favor, tente novamente.\n")
+           try:
+               user_input = data_type(input(message))
+               return user_input
+           except ValueError:
+               print("Entrada inválida. Por favor, tente novamente.\n")
 
     #Def responsavel pela busca de produtos no banco de dados
     def buscarProdutos():
@@ -49,16 +49,16 @@ try:
         produtos = cursor.fetchall()  # Obter todos os produtos
         #Função para saber se o cliente desejava buscar apenas um produto ou todos
         print("\n[1] Busca Simplificada\n[2] Exibir Completo")
-        opção_BD =get_input("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
+        opção_BD =Verificação("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
         while opção_BD not in [1, 2]:
                 print("\n\t\033[41mERRO\033[0m\n")
-                opção_BD =get_input("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
+                opção_BD =Verificação("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)#\033[47m Codigo pra definir cor de fundo,\033[30m Define cor do testo como preta
         #Modelo de banco de dados apresentado desejado
         print("\n[1] Tabela Horizonral \n[2] Tabela vertical ")
-        designerTabela=get_input("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)
+        designerTabela=Verificação("\n\033[47m\033[30mEscolha a Opção Desejada: \033[0m",int)
         #Aqui vai ser onde o trabalho de pesquisa simplificada vai ser feito
         if opção_BD == 1:
-            codigo_produto = get_input('\n\033[47m\033[30mDigite o Código do Produto: \033[0m',int)
+            codigo_produto = Verificação('\n\033[47m\033[30mDigite o Código do Produto: \033[0m',int)
             cursor.execute(f"SELECT * FROM proodutos WHERE codigo = {codigo_produto}")
             produto = cursor.fetchone()
             if produto:
@@ -105,7 +105,7 @@ try:
                 num = int(input("\n\033[47m\033[30mOpção Desejada: \033[0m"))
                 while num not in [1, 2,0]:
                     print("\n\t\033[41mERRO\033[0m\n")
-                    num = get_input("\n\033[47m\033[30mOpção Desejada: \033[0m",int)
+                    num = Verificação("\n\033[47m\033[30mOpção Desejada: \033[0m",int)
                 if num == 1:
                     apagarProdutos()
                 if num == 2:
@@ -231,12 +231,12 @@ try:
         print ("Cadastro de Produto")
         nome_cadastro = input("Nome do Produto: ",)
         descricao_cadastro = input("Descrição do Produto: ",)
-        codigo_cadastro = get_input("Cadastre o Código Para o Produto: ", int)
-        custo_cadastro = get_input("Custo do Produto: ", float)
-        comissao_cadastro = get_input("Qual a Taxa de Comissão de Vendas: ", float)
-        fixo_cadastro = get_input("Qual a Taxa de Custo Fixo: ", float)
-        impostos_cadastro = get_input("Qual a Taxa de Impostos: ", float)
-        rentabilidade_cadastro = get_input("Rentabilidade Esperada: ", float)
+        codigo_cadastro = Verificação("Cadastre o Código Para o Produto: ", int)
+        custo_cadastro = Verificação("Custo do Produto: ", float)
+        comissao_cadastro = Verificação("Qual a Taxa de Comissão de Vendas: ", float)
+        fixo_cadastro = Verificação("Qual a Taxa de Custo Fixo: ", float)
+        impostos_cadastro = Verificação("Qual a Taxa de Impostos: ", float)
+        rentabilidade_cadastro = Verificação("Rentabilidade Esperada: ", float)
 
         cursor.execute(f'''INSERT INTO PROODUTOS VALUES({codigo_cadastro},'{nome_cadastro}','{descricao_cadastro}',
                 {custo_cadastro},{fixo_cadastro},{comissao_cadastro},{impostos_cadastro},{rentabilidade_cadastro})'''
@@ -255,7 +255,7 @@ try:
 
         print("Deseja Confirmar as Opções ?")
         print("[SIM] Confirmar \n[NÃO] Cancelar")
-        tela_cadastro = get_input("Opção Desejada: ",str)
+        tela_cadastro = Verificação("Opção Desejada: ",str)
         tela_cadastro.lower()
         
         if tela_cadastro == 'sim':
@@ -263,10 +263,10 @@ try:
             print("Cadastro Concluido.")
             print("[1] Cadastrar Outro Produto\n[2]Sair")
             
-            opcao_cadastro = get_input ("Opção Desejada: ",int)
+            opcao_cadastro = Verificação ("Opção Desejada: ",int)
             while opcao_cadastro not in [1, 2,0]:#Verificação de entrada
                     print("\n\t\033[41mERRO\033[0m\n")
-                    opcao_cadastro = get_input ("Opção Desejada: ",int)
+                    opcao_cadastro = Verificação ("Opção Desejada: ",int)
             if opcao_cadastro == 1 :
                 cadastroProdutos()
 
@@ -279,7 +279,7 @@ try:
 
         elif tela_cadastro == 'nao' or tela_cadastro == 'não':
             print("[1] Recomeçar Cadastro \n[2] Sair do Cadastro de Produto")
-            opcao_cadastro = get_input ("Opção Desejada: ",int)
+            opcao_cadastro = Verificação ("Opção Desejada: ",int)
 
             if opcao_cadastro == 1 :
                 cadastroProdutos()
@@ -308,11 +308,11 @@ try:
                 print("\n\t\t\t\033[42mATENÇÃO!!!\033[0m\n\n")
                 print("Antes de Editar os Dados do Produto, Sugerimos Pesquisar as Informações do Produto.\n")
                 print("\033[32m[1]Visualizar\033[0m\n\033[31m[2]Continuar\033[0m\n[0]Voltar")
-                Verificar_Dados=get_input("\033[47m\033[30mOpção Desejada: \033[0m",float)
+                Verificar_Dados=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",float)
 
                 if Verificar_Dados != 1 and Verificar_Dados != 2 and Verificar_Dados != 3:#Verificação de entrada
                     print("\t\033[41mERRO\033[0m\n")
-                    Verificar_Dados=get_input("\033[47m\033[30mOpção Desejada: \033[0m",float)
+                    Verificar_Dados=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",float)
 
                 elif Verificar_Dados ==0:#Verificar dados ==0 volta para tela inicial do programa
                     telaMenu()
@@ -327,10 +327,10 @@ try:
                     editarProdutos()
             if num_tela==3 and contador==1:
                 print("\033[32m\n[1]Nome\n[2]Descricao\n[3]Custo Do Produto\n[4]Comissão\n[5]Custo Fixo\n[6]Impostos\n[7]Rentabilidade\n[0]Voltar\033[0m")
-                opcao_editar =get_input("\033[47m\033[30mDigite o Campo Desejado: \033[0m",int)
+                opcao_editar =Verificação("\033[47m\033[30mDigite o Campo Desejado: \033[0m",int)
                 while opcao_editar not in[1,2,3,4,5,6,7,0]:
-                    opcao_editar =get_input("\033[47m\033[30mDigite o Campo Desejado: \033[0m",int)
-                codigo_produto=get_input("\n\033[47m\033[30mCodigo Do Produto: \033[0m",int)
+                    opcao_editar =Verificação("\033[47m\033[30mDigite o Campo Desejado: \033[0m",int)
+                codigo_produto=Verificação("\n\033[47m\033[30mCodigo Do Produto: \033[0m",int)
 
                 if opcao_editar == 1:
                     Campo_Nome=input("Pra qual nome voçê deseja alterar: ")
@@ -376,7 +376,7 @@ try:
                     
                     print("-"*55)   
                     print("\033[32m[1]Editar Outro Pedido\033[0m\n[0]Voltar")
-                    confirmar_editar=get_input("\033[47m\033[30mOpção Desejada: \033[0m",int)
+                    confirmar_editar=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",int)
 
                     if confirmar_editar==1:
                         editarProdutos()#Condição ir pro setor de edição
@@ -393,7 +393,7 @@ try:
                 print("\n\t\t\t\033[42mATENÇÃO!!!\033[0m\n\n")
                 print("Antes De voçê Excluir Dados Da Tabela Sugerimos Pesquisar Primeiro.\n")
                 print("\033[31m[1]Continuar\033[0m\n\033[32m[2]Visualizar\033[0m\n[0]Voltar")
-                Verificar_Dados=get_input("\033[47m\033[30mOpção Desejada: \033[0m",int)
+                Verificar_Dados=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",int)
                 while Verificar_Dados not in [1, 2,0]:#Verificação de entrada
                     print("\n\t\033[41mERRO\033[0m\n")
                     Verificar_Dados=int(input("\033[47m\033[30mOpção Desejada: \033[0m"))
@@ -406,7 +406,7 @@ try:
                     telaMenu()
         if num_tela==4 and contador>=1:
                 print("\nDigite o Codigo do Produto para Realizar Procedimento\n")
-                codigo_excluir=get_input("\n\033[47m\033[30mDigite o codigo: \033[0m",int)
+                codigo_excluir=Verificação("\n\033[47m\033[30mDigite o codigo: \033[0m",int)
 
                 cursor.execute(f"DELETE FROM Proodutos WHERE codigo = {codigo_excluir}")
                 cursor.execute("commit")
@@ -415,10 +415,10 @@ try:
                     print("\t   \033[42mDeletado Com Susesso\033[0m")
                     print("-"*55) 
                     print("\033[32m[1]Deletar Outro Produto\033[0m\n[0]Voltar")
-                    confirmar_excluir=get_input("\033[47m\033[30mOpção Desejada: \033[0m",int)
+                    confirmar_excluir=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",int)
                     while confirmar_excluir not in [1,0]:#Verificação de entrada
                         print("\n\t\033[41mERRO\033[0m\n")
-                        confirmar_excluir=get_input("\033[47m\033[30mOpção Desejada: \033[0m",int)
+                        confirmar_excluir=Verificação("\033[47m\033[30mOpção Desejada: \033[0m",int)
                     if confirmar_excluir ==1:
                         
                         contador=contador+1
@@ -427,17 +427,17 @@ try:
                         telaMenu #Condição pra volta pra tela inicial
         print("\n\t\t\033[42mATENÇÃO!!!\033[0m\n\n")
         print("Voçê Deseja Mesmo Excluir Dados Da Tabela?\n\033[32m[1]SIM\033[0m\n\033[31m[2]NÃO\033[0m")
-        tela_excluir=get_input("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
+        tela_excluir=Verificação("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
 
         while tela_excluir not in [1,2,0]:#Verificação de entrada
             print("\n\t\033[41mERRO\033[0m\n")
-            tela_excluir=get_input("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
+            tela_excluir=Verificação("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
             while tela_excluir not in [1,0]:#Verificação de entrada
                 print("\n\t\033[41mERRO\033[0m\n")
-                tela_excluir=get_input("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
+                tela_excluir=Verificação("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
         if tela_excluir ==1:
             print("\nDigite o Codigo do Produto para Realizar Procedimento\n")
-            codigo_excluir=get_input("\n\033[47m\033[30mDigite o Codigo:\033[0m",int)
+            codigo_excluir=Verificação("\n\033[47m\033[30mDigite o Codigo:\033[0m",int)
             cursor.execute(f"DELETE FROM Produtos WHERE codigo_produto = {codigo_excluir}")
             cursor.execute("commit")
 
@@ -445,10 +445,10 @@ try:
             print("\t   \033[42mDeletado Com Susesso\033[0m")
             print("-"*55)
             print("\033[32m[1]Deletar Outro Produto\033[0m\n[2]Voltar")
-            tela_excluir = get_input("\033[47m\033[30mOpção Desejada: \033[0m",int)
+            tela_excluir = Verificação("\033[47m\033[30mOpção Desejada: \033[0m",int)
             while tela_excluir not in [1,0]:#Verificação de entrada
                 print("\n\t\033[41mERRO\033[0m\n")
-                tela_excluir=get_input("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
+                tela_excluir=Verificação("\n\033[47m\033[30mOpção Desejada:\033[0m",int)
         elif tela_excluir == 2:
             num_tela = telaMenu(num_tela)
             
